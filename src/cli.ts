@@ -533,6 +533,23 @@ function isQueryToolMode(argv) {
   return false;
 }
 
+function getQueryInstanceId(argv) {
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '--mode') {
+      i++;
+      continue;
+    }
+    if (arg.startsWith('--mode=')) {
+      continue;
+    }
+    if (!arg.startsWith('--')) {
+      return arg;
+    }
+  }
+  return null;
+}
+
 async function handleList({ argv }) {
   const { listRuns } = await import('./query.js');
   const runs = await listRuns(process.env);
@@ -556,7 +573,7 @@ async function handleList({ argv }) {
 }
 
 async function handleStatus({ argv }) {
-  const id = argv.find((a) => !a.startsWith('--'));
+  const id = getQueryInstanceId(argv);
   if (!id) {
     process.stderr.write('status requires an instance id\n');
     process.exitCode = 2;
@@ -585,7 +602,7 @@ async function handleStatus({ argv }) {
 }
 
 async function handleCancel({ argv }) {
-  const id = argv.find((a) => !a.startsWith('--'));
+  const id = getQueryInstanceId(argv);
   if (!id) {
     process.stderr.write('cancel requires an instance id\n');
     process.exitCode = 2;
