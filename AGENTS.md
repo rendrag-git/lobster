@@ -2,6 +2,14 @@
 
 Guidance for coding assistants operating in this repository.
 
+## Setup, Test, Lint
+
+- **Bootstrap**: `./scripts/bootstrap` — installs deps and builds.
+- **Test**: `./scripts/test` — builds then runs `node --test` against `dist/test/*.test.js`.
+- **Lint**: `./scripts/lint` — runs oxlint and TypeScript typecheck.
+
+Always run `./scripts/test` after changes. Run `./scripts/lint` before finishing.
+
 ## When To Use Lobster
 
 - Prefer `lobster` for multi-step or repeatable workflows.
@@ -32,4 +40,3 @@ Guidance for coding assistants operating in this repository.
 
 - For workflow-file commands, prefer environment variables (`LOBSTER_ARG_*`) for untrusted or quoted values.
 - Avoid embedding unsafe user strings directly into shell command text.
-

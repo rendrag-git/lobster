@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+echo "==> Running oxlint..."
+pnpm lint
+
+echo "==> Running typecheck..."
+pnpm typecheck
